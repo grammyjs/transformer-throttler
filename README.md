@@ -47,7 +47,7 @@ const outConfig = {
 ## Usage
 ```typescript
 import { Bot } from 'https://dsr.edjopato.de/grammy/^1.0.0/mod.ts';
-import { apiThrottler } from 'https://github.com/KnightNiwrem/grammy-transformer-throttler/raw/master/mod.ts';
+import { apiThrottler } from 'https://dsr.edjopato.de/grammy_transformer_throttler/^0.1.0/mod.ts';
 
 const botToken = Deno.env.get('BOT_TOKEN');
 if (!botToken) {
