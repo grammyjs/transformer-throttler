@@ -45,7 +45,7 @@ const outConfig = {
 ```
 
 ## Usage
-```
+```typescript
 import { Bot } from 'https://dsr.edjopato.de/grammy/^1.0.0/mod.ts';
 import { apiThrottler } from 'https://github.com/KnightNiwrem/grammy-transformer-throttler/raw/master/mod.ts';
 
