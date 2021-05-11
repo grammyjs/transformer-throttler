@@ -41,7 +41,7 @@ const apiThrottler = (
     // @ts-ignore
     const chatId = Number(payload.chat_id);
     const isGroup = chatId < 0;
-    const throttler = isGroup ? groupThrottler.key(`${chatId}`) : outThrottler;
+    const throttler = isGroup ? groupThrottler.key(`${chatId}`) : outThrottler.key(`${chatId}`);
     return throttler.schedule(() => prev(method, payload));
   };
   return transformer;
