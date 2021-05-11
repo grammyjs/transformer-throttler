@@ -1,7 +1,4 @@
 # Grammy Throttler (Transformer)
-
-[![Known Vulnerabilities](https://snyk.io/test/github/KnightNiwrem/grammy-transformer-throttler/badge.svg)](https://snyk.io/test/github/KnightNiwrem/grammy-transformer-throttler)
-
 Throttling transformer for [Grammy](https://github.com/grammyjs/grammY) bot framework, written in [Typescript](https://www.typescriptlang.org/) and built with [Bottleneck](https://github.com/SGrondin/bottleneck).
 
 ## About
