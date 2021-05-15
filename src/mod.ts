@@ -1,10 +1,10 @@
-import { Bottleneck } from './deps.ts';
-import type { Transformer } from './deps.ts';
+import { Bottleneck } from "./deps.deno.ts";
+import type { Transformer } from "./deps.deno.ts";
 
 type APIThrottlerOptions = {
-  global?: Bottleneck.ConstructorOptions,
-  group?: Bottleneck.ConstructorOptions,
-  out?: Bottleneck.ConstructorOptions,
+  global?: Bottleneck.ConstructorOptions;
+  group?: Bottleneck.ConstructorOptions;
+  out?: Bottleneck.ConstructorOptions;
 };
 
 const apiThrottler = (
@@ -30,18 +30,26 @@ const apiThrottler = (
   const globalThrottler = new Bottleneck(globalConfig);
   const groupThrottler = new Bottleneck.Group(groupConfig);
   const outThrottler = new Bottleneck.Group(outConfig);
-  groupThrottler.on('created', (throttler: Bottleneck) => throttler.chain(globalThrottler));
-  outThrottler.on('created', (throttler: Bottleneck) => throttler.chain(globalThrottler));
+  groupThrottler.on(
+    "created",
+    (throttler: Bottleneck) => throttler.chain(globalThrottler),
+  );
+  outThrottler.on(
+    "created",
+    (throttler: Bottleneck) => throttler.chain(globalThrottler),
+  );
 
   const transformer: Transformer = async (prev, method, payload) => {
-    if (!payload || !('chat_id' in payload)) {
+    if (!payload || !("chat_id" in payload)) {
       return prev(method, payload);
     }
 
     // @ts-ignore
     const chatId = Number(payload.chat_id);
     const isGroup = chatId < 0;
-    const throttler = isGroup ? groupThrottler.key(`${chatId}`) : outThrottler.key(`${chatId}`);
+    const throttler = isGroup
+      ? groupThrottler.key(`${chatId}`)
+      : outThrottler.key(`${chatId}`);
     return throttler.schedule(() => prev(method, payload));
   };
   return transformer;
