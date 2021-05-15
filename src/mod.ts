@@ -1,5 +1,5 @@
-import { Bottleneck } from "./deps.deno.ts";
-import type { Transformer } from "./deps.deno.ts";
+import { Bottleneck } from './deps.deno.ts';
+import type { Transformer } from './deps.deno.ts';
 
 type APIThrottlerOptions = {
   global?: Bottleneck.ConstructorOptions;
@@ -31,16 +31,16 @@ const apiThrottler = (
   const groupThrottler = new Bottleneck.Group(groupConfig);
   const outThrottler = new Bottleneck.Group(outConfig);
   groupThrottler.on(
-    "created",
+    'created',
     (throttler: Bottleneck) => throttler.chain(globalThrottler),
   );
   outThrottler.on(
-    "created",
+    'created',
     (throttler: Bottleneck) => throttler.chain(globalThrottler),
   );
 
   const transformer: Transformer = async (prev, method, payload) => {
-    if (!payload || !("chat_id" in payload)) {
+    if (!payload || !('chat_id' in payload)) {
       return prev(method, payload);
     }
 
