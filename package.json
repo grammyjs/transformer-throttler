@@ -33,6 +33,7 @@
   "peerDependencies": {
     "grammy": "^1.0.0"
   },
+  "files": ["dist/"],
   "keywords": [
     "bot",
     "grammy",
