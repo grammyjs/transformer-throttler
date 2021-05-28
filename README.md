@@ -8,7 +8,7 @@ This throttler aims to limit and queue outgoing Telegram API calls to conform to
 The throttler accepts a single optional argument of the following form:
 ```typescript
 type ThrottlerOptions = {
-  global?: Bottleneck.ConstructorOptions;      // For throttling all api calls
+  global?: Bottleneck.ConstructorOptions;     // For throttling all api calls
   group?: Bottleneck.ConstructorOptions;      // For throttling outgoing group messages
   out?: Bottleneck.ConstructorOptions;        // For throttling outgoing private messages
 };
