@@ -1,2 +1,2 @@
-export type { Transformer } from "https://dsr.edjopato.de/grammy/^1.0.0/mod.ts";
+export type { Transformer } from "https://lib.deno.dev/x/grammy@v1/mod.ts";
 export { default as Bottleneck } from "https://esm.sh/bottleneck@2";
