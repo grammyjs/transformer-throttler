@@ -1,6 +1,6 @@
 {
   "name": "@grammyjs/transformer-throttler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Throttling transformer for Grammy",
   "author": "KnightNiwrem",
   "license": "MIT",
@@ -33,7 +33,9 @@
   "peerDependencies": {
     "grammy": "^1.0.0"
   },
-  "files": ["dist/"],
+  "files": [
+    "dist/"
+  ],
   "keywords": [
     "bot",
     "grammy",
