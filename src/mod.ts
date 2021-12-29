@@ -39,9 +39,9 @@ const apiThrottler = (
     (throttler: Bottleneck) => throttler.chain(globalThrottler),
   );
 
-  const transformer: Transformer = async (prev, method, payload) => {
+  const transformer: Transformer = async (prev, method, payload, signal) => {
     if (!payload || !('chat_id' in payload)) {
-      return prev(method, payload);
+      return prev(method, payload, signal);
     }
 
     // @ts-ignore
@@ -50,7 +50,7 @@ const apiThrottler = (
     const throttler = isGroup
       ? groupThrottler.key(`${chatId}`)
       : outThrottler.key(`${chatId}`);
-    return throttler.schedule(() => prev(method, payload));
+    return throttler.schedule(() => prev(method, payload, signal));
   };
   return transformer;
 };
