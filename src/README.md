@@ -8,7 +8,7 @@ This throttler aims to limit and queue outgoing Telegram API calls to conform to
 The throttler accepts a single optional argument of the following form:
 ```typescript
 type ThrottlerOptions = {
-  global? Bottleneck.ConstructorOptions;      // For throttling all api calls
+  global?: Bottleneck.ConstructorOptions;     // For throttling all api calls
   group?: Bottleneck.ConstructorOptions;      // For throttling outgoing group messages
   out?: Bottleneck.ConstructorOptions;        // For throttling outgoing private messages
 };
@@ -43,8 +43,9 @@ const outConfig = {
 
 ## Usage
 ```typescript
-import { Bot } from 'https://dsr.edjopato.de/grammy/^1.0.0/mod.ts';
-import { apiThrottler } from 'https://dsr.edjopato.de/grammy_transformer_throttler/^0.1.0/mod.ts';
+import { Bot } from 'https://lib.deno.dev/x/grammy@1/mod.ts';
+import { run } from 'https://lib.deno.dev/x/grammy_runner@1/mod.ts';
+import { apiThrottler } from 'https://lib.deno.dev/x/grammy_transformer_throttler@1/mod.ts';
 
 const botToken = Deno.env.get('BOT_TOKEN');
 if (!botToken) {
@@ -56,5 +57,7 @@ const throttler = apiThrottler();
 bot.api.config.use(throttler);
 
 bot.command('/example', ctx => ctx.reply('I am throttled'));
-bot.start();
+
+// If you are using throttler, you most likely want to use a runner to handle update concurrently
+run(bot);
 ```
