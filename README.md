@@ -1,5 +1,5 @@
-# Grammy Throttler (Transformer)
-Throttling transformer for [Grammy](https://github.com/grammyjs/grammY) bot framework, written in [Typescript](https://www.typescriptlang.org/) and built with [Bottleneck](https://github.com/SGrondin/bottleneck).
+# grammY Throttler (Transformer)
+Throttling transformer for [grammY](https://github.com/grammyjs/grammY) bot framework, written in [Typescript](https://www.typescriptlang.org/) and built with [Bottleneck](https://github.com/SGrondin/bottleneck).
 
 ## About
 This throttler aims to limit and queue outgoing Telegram API calls to conform to the official [Telegram API rate limits](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this).
@@ -58,6 +58,6 @@ bot.api.config.use(throttler);
 
 bot.command('/example', ctx => ctx.reply('I am throttled'));
 
-// If you are using throttler, you most likely want to use a runner to handle update concurrently
+// If you are using throttler, you most likely want to use a runner to handle updates concurrently
 run(bot);
 ```
