@@ -19,9 +19,13 @@ const bypassThrottler: MiddlewareFn = async (ctx, next) => {
     // Note: Depends on referential equality which is not guaranteed
     willSkip = false;
     skipSet.add(payload);
-    const result = await prev(method, payload, signal);
-    skipSet.delete(payload);
-    return result;
+
+    try {
+      const result = await prev(method, payload, signal);
+      return result;
+    } finally {
+      skipSet.delete(payload);
+    }
   });
   await next();
 };
