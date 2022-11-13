@@ -1,10 +1,29 @@
 import { Bottleneck } from './deps.deno.ts';
-import type { Transformer } from './deps.deno.ts';
+import type { MiddlewareFn, Transformer } from './deps.deno.ts';
 
 type APIThrottlerOptions = {
   global?: Bottleneck.ConstructorOptions;
   group?: Bottleneck.ConstructorOptions;
   out?: Bottleneck.ConstructorOptions;
+};
+
+const skipSet = new Set();
+
+const bypassThrottler: MiddlewareFn = async (ctx, next) => {
+  let willSkip = true;
+  ctx.api.config.use(async (prev, method, payload, signal) => {
+    if (!willSkip) {
+      return prev(method, payload, signal);
+    }
+
+    // Note: Depends on referential equality which is not guaranteed
+    willSkip = false;
+    skipSet.add(payload);
+    const result = await prev(method, payload, signal);
+    skipSet.delete(payload);
+    return result;
+  });
+  await next();
 };
 
 const apiThrottler = (
@@ -40,7 +59,7 @@ const apiThrottler = (
   );
 
   const transformer: Transformer = async (prev, method, payload, signal) => {
-    if (!payload || !('chat_id' in payload)) {
+    if (!payload || !('chat_id' in payload) || skipSet.has(payload)) {
       return prev(method, payload, signal);
     }
 
@@ -59,4 +78,4 @@ const BottleneckStrategy = Bottleneck.strategy;
 export { BottleneckStrategy };
 
 export type { APIThrottlerOptions };
-export { apiThrottler };
+export { apiThrottler, bypassThrottler };
