@@ -43,13 +43,16 @@ const outConfig = {
 
 ## Usage
 ```typescript
-import { Bot } from 'https://lib.deno.dev/x/grammy@1/mod.ts';
-import { run } from 'https://lib.deno.dev/x/grammy_runner@1/mod.ts';
-import { apiThrottler, bypassThrottler } from 'https://lib.deno.dev/x/grammy_transformer_throttler@1/mod.ts';
+import { Bot } from "npm:grammy@^1";
+import { run } from "npm:@grammyjs/runner@^2";
+import {
+  apiThrottler,
+  bypassThrottler,
+} from "npm:@grammyjs/transformer-throttler@^1";
 
-const botToken = Deno.env.get('BOT_TOKEN');
+const botToken = Deno.env.get("BOT_TOKEN");
 if (!botToken) {
-  throw Error('BOT_TOKEN is required');
+  throw Error("BOT_TOKEN is required");
 }
 const bot = new Bot(botToken);
 
@@ -58,7 +61,7 @@ bot.api.config.use(throttler);
 
 // Experimental: Do not throttle update-initiated first response
 bot.use(bypassThrottler);
-bot.command('/example', ctx => ctx.reply('I am throttled'));
+bot.command("/example", (ctx) => ctx.reply("I am throttled"));
 
 // If you are using throttler, you most likely want to use a runner to handle updates concurrently
 run(bot);

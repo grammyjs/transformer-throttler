@@ -1,2 +1,2 @@
-export type { MiddlewareFn, Transformer } from "https://lib.deno.dev/x/grammy@v1/mod.ts";
-export { default as Bottleneck } from "https://esm.sh/bottleneck@2";
+export type { MiddlewareFn, Transformer } from "npm:grammy@^1";
+export { default as Bottleneck } from "npm:bottleneck@^2";
